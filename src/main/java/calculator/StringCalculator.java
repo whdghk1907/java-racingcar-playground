@@ -4,17 +4,20 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class StringCalculator {
-    public int sum(String value) {
+    public int splitAndSum(String value) {
         if(value == null || value.isEmpty()) {
             return 0;
         }
 
-        String[] results = splitNumber(value);
-
+        String[] results = splitString(value);
         if(results == null) {
             return Integer.parseInt(results[0]);
         }
 
+        return sumAndParseString(results);
+    }
+
+    private int sumAndParseString(String[] results) {
         int count = 0;
 
         for(String result : results) {
@@ -23,15 +26,12 @@ public class StringCalculator {
             if (resultToInt < 0) {
                 throw new RuntimeException();
             }
-
             count += resultToInt;
         }
-
         return count;
     }
 
-    public String[] splitNumber(String value) {
-
+    private String[] splitString(String value) {
         if(value.contains(",") || value.contains(":")) {
             return value.split("[,:]");
         }
